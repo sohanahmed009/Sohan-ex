@@ -10,7 +10,7 @@ module.exports = {
 	config: {
 		name: "help",
 		version: "1.21",
-		author: "Sohan",
+		author: "Sohan", //file created by Badhon-00
 		countDown: 5,
 		role: 0,
 		description: {
