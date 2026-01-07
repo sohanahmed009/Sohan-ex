@@ -110,7 +110,7 @@ module.exports = {
     name: "uptime",
     aliases: ["up", "upt", "status"],
     version: "2.0",
-    author: "nexo_here",
+    author: "Sohan",
     shortDescription: "Show bot status & system info",
     longDescription: "Displays comprehensive bot uptime, system specifications, and resource usage statistics.",
     category: "system",
@@ -135,8 +135,8 @@ module.exports = {
       const diskInfo = getDiskInfo();
       const loadAvg = os.loadavg().map(load => load.toFixed(2)).join(', ');
       const homeDir = os.homedir();
-      const operator = "BADHON";
-      const botName = "🎀 𝗠𝗘𝗟𝗜𝗦𝗦𝗔 𝗕𝗢𝗧 𝗩𝟯 🎀";
+      const operator = "SOHAN";
+      const botName = "🎀 𝗧𝗔𝗡𝗜𝗦𝗛𝗔 𝗕𝗢𝗧 🎀";
       const msg = 
 `┌───  ${botName}  ───┐
 
@@ -186,7 +186,7 @@ module.exports = {
 ⏰ Uptime: ${simpleUptime}
 💻 Platform: ${os.platform()}
 📊 Memory: ${formatBytes(os.totalmem() - os.freemem())} / ${formatBytes(os.totalmem())}
-👤 Operator: BADHON
+👤 Operator: SOHAN
 ❌ Detailed stats unavailable`
       );
     }
