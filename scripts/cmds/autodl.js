@@ -4,13 +4,13 @@ const path = require("path");
 
 module.exports = {
   config: {
-    name: "autodl",
+    name: "autodown",
     aliases: ["autodl"],
-    version: "1.6",
-    author: "Badhon",
+    version: "1.6.9",
+    author: "BADHON", // don't change author otherwise badhon gives you strike
     role: 0,
-    description: "Auto-download media from any platform",
-    category: "utility",
+    description: "Auto-download media from any  platform",
+    category: "downloader",
     guide: { en: "Send any media link" }
   },
 
@@ -21,7 +21,7 @@ module.exports = {
     if (!url) return;
 
     try {
-      api.setMessageReaction("🐸", event.messageID, () => {}, true);
+      api.setMessageReaction("🦆", event.messageID, () => {}, true);
 
       const apiUrl = (await axios.get("https://raw.githubusercontent.com/nazrul4x/Noobs/main/Apis.json")).data.api;
       const { data } = await axios.get(`${apiUrl}/nazrul/alldlxx?url=${encodeURIComponent(url)}`);
@@ -48,55 +48,17 @@ module.exports = {
         writer.on('error', reject);
       });
 
-      let userName = "User";
-      try {
-        const userInfo = await api.getUserInfo(event.senderID);
-        userName = userInfo[event.senderID]?.name || "User";
-      } catch (e) {
-        console.log("Could not fetch user info");
-      }
-      const successLayout = `
-┏━━━━━━━━━━━━━━━━━━━━┓
-┃    🎬 𝗩𝗜𝗗𝗘𝗢 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥 
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ 📱 𝗣𝗹𝗮𝘁𝗳𝗼𝗿𝗺: ${data.p || "Unknown"}
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ 🔗 𝗦𝗵𝗼𝗿𝘁𝗲𝗻𝗲𝗱 𝗨𝗥𝗟: ${url || "Not available"}
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ 📥 𝗦𝘁𝗮𝘁𝘂𝘀: Successfully Downloaded
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ 👤 𝗥𝗲𝗾𝘂𝗲𝘀𝘁𝗲𝗱 𝗯𝘆: ${userName}
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ ⚡ 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗯𝘆: 𝗕𝗔𝗗𝗛𝗢𝗡
-┗━━━━━━━━━━━━━━━━━━━━┛
-      `.trim();
-
       await api.sendMessage({
-        body: successLayout,
+        body: `${data.t}\n🛠️ Platform: ${data.p}`,
         attachment: fs.createReadStream(filePath)
       }, event.threadID);
 
       fs.unlink(filePath, () => {});
-      api.setMessageReaction("🐤", event.messageID, () => {}, true);
+      api.setMessageReaction("✅", event.messageID, () => {}, true);
 
-    } catch (error) {
-      const errorLayout = `
-┏━━━━━━━━━━━━━━━━━━━━┓
-┃      ❌ 𝗘𝗥𝗥𝗢𝗥       
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ ⚠️  Failed to download video
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ 📝  Error: ${error.message}
-┣━━━━━━━━━━━━━━━━━━━━┫
-┃ ⚡ Powered by: 𝗕𝗔𝗗𝗛𝗢𝗡
-┗━━━━━━━━━━━━━━━━━━━━┛
-      `.trim();
-
+    } catch (e) {
       api.setMessageReaction("❌", event.messageID, () => {}, true);
-      await api.sendMessage({
-        body: errorLayout
-      }, event.threadID);
-      console.log(error.message);
+      console.log(e.message);
     }
   }
 };
